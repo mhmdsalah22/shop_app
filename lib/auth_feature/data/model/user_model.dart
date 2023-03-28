@@ -8,6 +8,7 @@ class UserModel {
   String? message;
   Data data;
 
+
   UserModel({required this.status, this.message, required this.data});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
