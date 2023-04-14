@@ -16,6 +16,7 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: HexColor('333739'),
     elevation: 0.0,
     titleTextStyle: const TextStyle(
+      fontFamily: 'Jannah',
       color: Colors.white,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
@@ -33,6 +34,7 @@ ThemeData darkTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     bodyMedium: TextStyle(
+      fontFamily: 'Jannah',
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
@@ -48,11 +50,13 @@ ThemeData lightTheme = ThemeData(
     titleSpacing: 20.0,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
     ),
     backgroundColor: Colors.white,
     elevation: 0.0,
     titleTextStyle: TextStyle(
+      fontFamily: 'Jannah',
+
       color: Colors.black,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
@@ -70,6 +74,7 @@ ThemeData lightTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     bodyMedium: TextStyle(
+      fontFamily: 'Jannah',
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,

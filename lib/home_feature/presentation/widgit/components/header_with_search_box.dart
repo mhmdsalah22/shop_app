@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shop_application/core/utiles/contants.dart';
 import 'package:shop_application/search_feature/presentation/pages/search_screen.dart';
 
@@ -39,9 +38,9 @@ class HeaderWithSearchBox extends StatelessWidget {
                 Text(
                   'Hi Uishopy!',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const Spacer(),
                 Image.asset('images/logo.png'),
@@ -69,9 +68,11 @@ class HeaderWithSearchBox extends StatelessWidget {
                 ],
               ),
               child: GestureDetector(
-                onTap: ()
-                {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchScreen()));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SearchScreen()));
                 },
                 child: Row(
                   children: [
@@ -84,11 +85,14 @@ class HeaderWithSearchBox extends StatelessWidget {
                             color: Colors.blue.withOpacity(.5),
                           ),
                           enabledBorder: InputBorder.none,
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Colors.blue.withOpacity(.5),
+                          ),
                           focusedBorder: InputBorder.none,
                         ),
                       ),
                     ),
-                    SvgPicture.asset('icons/search.svg'),
                   ],
                 ),
               ),

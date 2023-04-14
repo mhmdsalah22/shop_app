@@ -3,18 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_application/categories_feature/remote_data_source/categories_model/categories_model.dart';
 import 'package:shop_application/core/utiles/contants.dart';
+import 'package:shop_application/home_feature/controller/change_favorte_cubit/change_favorte_cubit.dart';
+import 'package:shop_application/home_feature/controller/change_favorte_cubit/change_favorte_states.dart';
+import 'package:shop_application/home_feature/controller/products_cubit/product_cubit.dart';
+import 'package:shop_application/home_feature/controller/products_cubit/product_states.dart';
+import 'package:shop_application/home_feature/presentation/widgit/components/build_catecory_item.dart';
+import 'package:shop_application/home_feature/remote_data_source/model/home_model.dart';
 import 'package:shop_application/products_details_feture/presentation/pages/products_detailes.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_cubit.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_states.dart';
-import 'package:shop_application/products_feature/presentation/widgit/components/build_catecory_item.dart';
-import 'package:shop_application/products_feature/remote_data_source/model/home_model.dart';
 import 'header_with_search_box.dart';
 
 class Body extends StatelessWidget {
   final HomeModel model;
   final CategoriesModel categoriesModel;
 
-  Body({
+  const Body({
     super.key,
     required this.model,
     required this.categoriesModel,
@@ -24,30 +26,13 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<ProductsCubit, ProductsStates>(
-      listener: (context, state) {
-        if (state is SuccessChangeFavoriteState) {
-          if (!state.model.status) {
-            Fluttertoast.showToast(
-                msg: state.model.message,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 5,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        }
-      },
-      builder: (context, state) {
+      listener: (context, state) {},
+      builder: (context, ss) {
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HeaderWithSearchBox(size: size),
-              // TitleWithMoreBtn(
-              //   title: 'Recommended',
-              //   press: () {},
-              // ),
               const SizedBox(
                 height: 10.0,
               ),
@@ -129,105 +114,129 @@ class BuildItemProduct extends StatelessWidget {
     required this.model,
   });
 
-  final ProductModel model;
+  final ProductsBean model;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: ()
-      {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductsDetailsScreen(productId: model.id,)));
-      },
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: AlignmentDirectional.bottomStart,
-              children: [
-                Image(
-                  image: NetworkImage(model.image),
-                  width: double.infinity,
-                  height: 200.0,
-                ),
-                if (model.discount != 0)
-                  Container(
-                    color: Colors.red,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 5.0,
-                    ),
-                    child: const Text(
-                      'DISCOUNT',
-                      style: TextStyle(
-                        fontSize: 8.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
+    return BlocBuilder<ProductsCubit, ProductsStates>(
+      builder: (context, state) {
+        return BlocConsumer<ChangeFavoriteCubit, ChangeFavoriteStates>(
+            listener: (context, state) {
+          if (state is SuccessChangeFavoriteState) {
+            if (!state.model.status) {
+              Fluttertoast.showToast(
+                  msg: state.model.message,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+          }
+        }, builder: (context, state) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductsDetailsScreen(
+                            productId: model.id,
+                          )));
+            },
+            child: Container(
+              color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    model.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      height: 1.3,
-                    ),
-                  ),
-                  Row(
+                  Stack(
+                    alignment: AlignmentDirectional.bottomStart,
                     children: [
-                      Text(
-                        '${model.price.round()}',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: defaultColor,
-                        ),
+                      Image(
+                        image: NetworkImage(model.image),
+                        width: double.infinity,
+                        height: 200.0,
                       ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      if (model.discount != 0)
-                        Text(
-                          '${model.oldPrice.round()}',
-                          style: const TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.grey,
-                            decoration: TextDecoration.lineThrough,
+                      if (model.discount != -1)
+                        Container(
+                          color: Colors.red,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4.0,
+                          ),
+                          child: const Text(
+                            'DISCOUNT',
+                            style: TextStyle(
+                              fontSize: 7.0,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          ProductsCubit.get(context).changeFavorite(model.id , context);
-                        },
-                        icon: CircleAvatar(
-                          radius: 15.0,
-                          backgroundColor:
-                              ProductsCubit.get(context).favorites[model.id]!
-                                  ? defaultColor
-                                  : Colors.grey,
-                          child: const Icon(
-                            Icons.favorite_border,
-                            size: 14.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(11.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          model.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            height: 1.3,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '${model.price.round()}',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: defaultColor,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 4.0,
+                            ),
+                            if (model.discount != -1)
+                              Text(
+                                '${model.old_price.round()}',
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                              ),
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                ChangeFavoriteCubit.get(context).changeFavorite(
+                                    productId: model.id, context: context);
+                              },
+                              icon: CircleAvatar(
+                                radius: 16.0,
+                                backgroundColor: favorites[model.id]!
+                                    ? defaultColor
+                                    : Colors.grey,
+                                child: const Icon(
+                                  Icons.favorite_border,
+                                  size: 14.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        });
+      },
     );
   }
 }

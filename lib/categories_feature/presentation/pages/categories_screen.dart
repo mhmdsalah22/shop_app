@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_application/categories_feature/controller/category_cubit/category_cubit.dart';
+import 'package:shop_application/categories_feature/controller/category_cubit/category_state.dart';
 import 'package:shop_application/categories_feature/remote_data_source/categories_model/categories_model.dart';
 import 'package:shop_application/category_details_feature/prsentation/pages/category_details_screen.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_cubit.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_states.dart';
 
 class CategoriesScreen extends StatelessWidget
 {
@@ -12,18 +12,19 @@ class CategoriesScreen extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    return BlocConsumer<ProductsCubit, ProductsStates>(
+    return BlocConsumer<CategoryCubit, CategoryStates>(
       listener: (context, state) {},
       builder: (context, state)
       {
         return ListView.separated(
-          itemBuilder: (context, index) => buildCatItem(ProductsCubit.get(context).categoriesModel!.data.data[index], context),
+          itemBuilder: (context, index) => buildCatItem(
+              CategoryCubit.get(context).categoriesModel!.data.data[index], context),
           separatorBuilder: (context, index) => Container(
             height: 1,
             width: double.infinity,
             color: Colors.grey[300],
           ),
-          itemCount: ProductsCubit.get(context).categoriesModel!.data.data.length,
+          itemCount: CategoryCubit.get(context).categoriesModel!.data.data.length,
         );
       },
     );

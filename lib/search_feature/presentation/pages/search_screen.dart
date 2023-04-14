@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_cubit.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_states.dart';
+import 'package:shop_application/home_feature/controller/products_cubit/product_cubit.dart';
+import 'package:shop_application/home_feature/controller/products_cubit/product_states.dart';
 import 'package:shop_application/search_feature/controller/search_cubit/search_cubit.dart';
 import 'package:shop_application/search_feature/controller/search_cubit/search_states.dart';
+import 'package:shop_application/search_feature/presentation/widget/favorite_button.dart';
 import 'package:shop_application/search_feature/remote_data_source/search_model/search_model.dart';
 import '../../../core/utiles/contants.dart';
 
@@ -126,23 +127,7 @@ Widget buildProductsSearchItem(SearchData data, BuildContext context) {
                           width: 5.0,
                         ),
                         const Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            ProductsCubit.get(context)
-                                .changeFavorite(data.id, context);
-                          },
-                          icon: CircleAvatar(
-                            radius: 15.0,
-                            backgroundColor: data.in_favorites
-                                ? defaultColor
-                                : Colors.grey,
-                            child: const Icon(
-                              Icons.favorite_border,
-                              size: 14.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                         FavoriteButton(data: data,),
                       ],
                     ),
                   ],
@@ -155,3 +140,4 @@ Widget buildProductsSearchItem(SearchData data, BuildContext context) {
     },
   );
 }
+

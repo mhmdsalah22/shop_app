@@ -36,7 +36,7 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
 
 Cart_items _$Cart_itemsFromJson(Map<String, dynamic> json) => Cart_items(
       id: json['id'] as int,
-      quantity: json['quantity'] as num,
+      quantity: json['quantity'] as int,
       product: Product.fromJson(json['product'] as Map<String, dynamic>),
     );
 

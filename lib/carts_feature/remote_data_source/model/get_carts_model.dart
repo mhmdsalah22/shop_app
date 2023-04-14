@@ -31,7 +31,7 @@ class Data {
 @JsonSerializable()
 class Cart_items {
   int id;
-  num quantity;
+  int quantity;
   Product product;
 
   Cart_items({ required this.id, required this.quantity, required this.product});

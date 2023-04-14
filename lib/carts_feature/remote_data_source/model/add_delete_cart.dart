@@ -3,18 +3,18 @@ import 'package:json_annotation/json_annotation.dart';
 part 'add_delete_cart.g.dart';
 
 @JsonSerializable()
-class AddDeleteCart {
+class AddProductTOCart {
   bool status;
   String? message;
   Data data;
 
-  AddDeleteCart(
+  AddProductTOCart(
       {required this.status, required this.message, required this.data});
 
-  factory AddDeleteCart.fromJson(Map<String, dynamic> json) =>
-      _$AddDeleteCartFromJson(json);
+  factory AddProductTOCart.fromJson(Map<String, dynamic> json) =>
+      _$AddProductTOCartFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AddDeleteCartToJson(this);
+  Map<String, dynamic> toJson() => _$AddProductTOCartToJson(this);
 }
 
 @JsonSerializable()

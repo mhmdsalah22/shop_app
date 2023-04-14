@@ -4,10 +4,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_application/core/utiles/contants.dart';
 import 'package:shop_application/favorites_feature/controller/get_favorite_cubt/favorite_cubt.dart';
 import 'package:shop_application/favorites_feature/controller/get_favorite_cubt/favorite_states.dart';
+import 'package:shop_application/favorites_feature/presentation/widget/favorite_button_in_favorites_screen.dart';
 import 'package:shop_application/favorites_feature/remote_data_source/model/favorites.dart';
+import 'package:shop_application/home_feature/controller/products_cubit/product_cubit.dart';
+import 'package:shop_application/home_feature/controller/products_cubit/product_states.dart';
 import 'package:shop_application/products_details_feture/presentation/pages/products_detailes.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_cubit.dart';
-import 'package:shop_application/products_feature/controller/products_cubit/product_states.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -20,7 +21,6 @@ class FavoritesScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             if (state is LoadingGetFavoriteState) {
-              return const Center(child: CircularProgressIndicator());
             } else if (state is SuccessGetFavoriteState) {
               return ListView.separated(
                 itemBuilder: (context, index) => buildFavoriteItem(
@@ -128,26 +128,7 @@ Widget buildFavoriteItem(Data model, BuildContext context)
                               decoration: TextDecoration.lineThrough),
                         ),
                       const Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          print('hi');
-                          ProductsCubit.get(context)
-                              .changeFavorite(model.product.id, context);
-                        },
-                        icon: CircleAvatar(
-                          radius: 15.0,
-                          backgroundColor: ProductsCubit.get(context)
-                                      .favorites[model.product.id] !=
-                                  null
-                              ? defaultColor
-                              : Colors.grey,
-                          child: const Icon(
-                            Icons.favorite_border,
-                            size: 14.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      FavoriteButtonInFavoritesScreen(model: model,),
                     ],
                   ),
                 ],
@@ -159,3 +140,4 @@ Widget buildFavoriteItem(Data model, BuildContext context)
     ),
   );
 }
+

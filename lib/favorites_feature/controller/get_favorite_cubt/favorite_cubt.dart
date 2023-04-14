@@ -11,7 +11,7 @@ class FavoriteCubit extends Cubit<FavoriteStates> {
       BlocProvider.of(context);
 
   void getFavorites(){
-    emit(LoadingGetFavoriteState());
+    //emit(LoadingGetFavoriteState());
     RemoteDataSourceFavorite().getFavorite().then((value){
       emit(SuccessGetFavoriteState(favorites:  Favorites.fromJson(value.data)));
     }).catchError((error){

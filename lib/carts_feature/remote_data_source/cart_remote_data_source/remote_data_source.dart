@@ -38,4 +38,41 @@ class CartRemoteDataSource {
       throw ServerFailure(message: error.toString());
     }
   }
+
+  Future<Response> updateCart({
+    required int cartId,
+    required int quantity,
+}) async {
+    try {
+      DioHelper.dio.options.headers = {
+        'lang': 'en',
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      };
+      final result = await DioHelper.dio.put('carts/$cartId' , data: {
+        'quantity' : quantity,
+      });
+      return result;
+    } catch (error) {
+      print(error.toString());
+      throw ServerFailure(message: error.toString());
+    }
+  }
+
+  Future<Response> deleteCarts({
+    required int cartId,
+  })async {
+    try {
+      DioHelper.dio.options.headers = {
+        'lang': 'en',
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      };
+      final result = await DioHelper.dio.delete('carts/$cartId');
+      return result;
+    }catch (error) {
+      print(error.toString());
+      throw ServerFailure(message: error.toString());
+    }
+  }
 }

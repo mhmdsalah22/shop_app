@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:shop_application/core/end_points.dart';
 import 'package:shop_application/core/error/failure.dart';
 import 'package:shop_application/core/network/remote/dio_helper.dart';
 
