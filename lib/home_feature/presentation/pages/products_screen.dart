@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return BlocConsumer<ProductsCubit, ProductsStates>(
           listener:(context, state) {
+            //4
             // if (state is SuccessProductsState) {
             //   HomeRemoteDataSource().getData(token: token, url: home).then((value) {
             //     SuccessProductsState(homeModel: HomeModel.fromJson(value.data)).homeModel
