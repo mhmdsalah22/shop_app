@@ -52,30 +52,32 @@ class HeaderWithSearchBox extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
-              },
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                height: 54,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 10),
-                      blurRadius: 50,
-                      color: Colors.blue.withOpacity(.23),
-                    ),
-                  ],
-                ),
+            child: Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: 54,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 10),
+                    blurRadius: 50,
+                    color: Colors.blue.withOpacity(.23),
+                  ),
+                ],
+              ),
+              child: GestureDetector(
+                onTap: ()
+                {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchScreen()));
+                },
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
+                      child: TextFormField(
+                        enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Search',
                           hintStyle: TextStyle(
