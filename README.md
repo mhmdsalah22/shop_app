@@ -50,10 +50,10 @@ Follow these steps to set up and run the application locally:
    ```bash
    flutter run
 ## Screenshots
-![image_original (7)](https://github.com/user-attachments/assets/d1095f65-e8cc-4f3b-bced-1b13e5081ab0)
-![image_original (6)](https://github.com/user-attachments/assets/cedff7e4-2070-4a4c-b558-5ac5c2652f7e)
-![image_original (5)](https://github.com/user-attachments/assets/61f655a1-16b2-49f3-8aa9-675251ea0275)
 ![image_original (4)](https://github.com/user-attachments/assets/aeba2548-5294-4ed4-8ff3-618f87eeff2a)
+![image_original (5)](https://github.com/user-attachments/assets/61f655a1-16b2-49f3-8aa9-675251ea0275)
+![image_original (6)](https://github.com/user-attachments/assets/cedff7e4-2070-4a4c-b558-5ac5c2652f7e)
+![image_original (7)](https://github.com/user-attachments/assets/d1095f65-e8cc-4f3b-bced-1b13e5081ab0)
 
 
 
